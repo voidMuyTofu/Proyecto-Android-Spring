@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Mi armario</string>
+    <string name="nueva_prenda">nueva prenda</string>
+    <string name="preferencias">Preferencias</string>
+    <string name="acerca_de">Acerca de</string>
+    <string name="button">Button</string>
+    <string name="button">Button</string>
+    <string name="nombre">Nombre</string>
+    <string name="marca">Marca</string>
+    <string name="talla">Talla</string>
+    <string name="precio">Precio</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
+</resources>
