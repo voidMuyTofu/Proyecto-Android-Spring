@@ -4,11 +4,17 @@
     <string name="preferencias">Preferencias</string>
     <string name="acerca_de">Acerca de</string>
     <string name="button">Button</string>
-    <string name="button">Button</string>
     <string name="nombre">Nombre</string>
     <string name="marca">Marca</string>
     <string name="talla">Talla</string>
     <string name="precio">Precio</string>
     <string name="guardar">Guardar</string>
     <string name="cancelar">Cancelar</string>
+    <string name="abrir_mapa">Abrir Mapa</string>
+    <string name="title_activity_principal">Principal</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

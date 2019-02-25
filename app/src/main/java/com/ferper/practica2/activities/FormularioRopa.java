@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class FormularioRopa extends Activity implements View.OnClickListener {
 
-    private static final String URL_SERVIDOR = "http://192.168.34.190:8082";
+    private static final String URL_SERVIDOR = "http://localhost:8082";
     EditText etNombre,etMarca,etTalla,etPrecio;
     Button btGuardar,btCancelar;
     @Override
@@ -28,6 +28,8 @@ public class FormularioRopa extends Activity implements View.OnClickListener {
         etPrecio = findViewById(R.id.etPrecio);
         btGuardar = findViewById(R.id.btGuardar);
         btCancelar = findViewById(R.id.btCancelar);
+        btGuardar.setOnClickListener(this);
+        btCancelar.setOnClickListener(this);
     }
 
     @Override
