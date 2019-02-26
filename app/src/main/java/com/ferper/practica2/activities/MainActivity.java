@@ -3,10 +3,14 @@ package com.ferper.practica2.activities;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.app.UiModeManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ListView lvPrendas;
     RopaAdapter adapter;
     Button btAbrirMapa;
+    boolean modoNoche,modoGrande;
     private ArrayList<Ropa> prendas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btAbrirMapa = findViewById(R.id.btAbrirMapa);
         btAbrirMapa.setOnClickListener(this);
 
+        SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(this);
+        modoNoche = preferencias.getBoolean("opcion_modo_noche",false);
+        UiModeManager modeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+        if (modoNoche)
+            modeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+        else
+            modeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
         Ropa prenda = new Ropa();
         prenda.setNombre("wily");
         prenda.setMarca("wonka");
@@ -62,11 +74,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         prendas.add(prenda);
         adapter.notifyDataSetChanged();
 
-        //DescargaDatos descargaDatos = new DescargaDatos();
-        //descargaDatos.execute();
-        //adapter.notifyDataSetChanged();
+        DescargaDatos descargaDatos = new DescargaDatos();
+        descargaDatos.execute();
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        UiModeManager modeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+        if (modoNoche)
+            modeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+        else
+            modeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
     }
 
     @Override
@@ -84,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 return true;
             case R.id.menu_preferencias:
+                Intent intent1 = new Intent(this,Preferencias.class);
+                startActivity(intent1);
                 return true;
             case R.id.menu_about:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -116,18 +139,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     class DescargaDatos extends AsyncTask<String,Void,Void>{
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            adapter.notifyDataSetChanged();
+        }
 
         @Override
         protected Void doInBackground(String... strings) {
 
-
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            Ropa[] prendasServer = restTemplate.getForObject("http://192.168.34.190:8082"
+            Ropa[] prendasServer = restTemplate.getForObject("http://10.0.2.2:8082"
                     + "/armario",Ropa[].class);
             prendas.addAll(Arrays.asList(prendasServer));
             System.out.println(prendas);
             return null;
         }
+
+
     }
 }

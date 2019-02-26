@@ -12,8 +12,9 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationServices;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
-public class MapaActivity extends Activity {
+public class MapaActivity extends Activity implements View.OnClickListener {
     MapView mapaView;
     private LocationServices servicioUbicacion;
     private View btUbicacion;
@@ -27,20 +28,31 @@ public class MapaActivity extends Activity {
         setContentView(R.layout.activity_mapa);
         mapaView = findViewById(R.id.mapaView);
         mapaView.onCreate(savedInstanceState);
+        btUbicacion = findViewById(R.id.btUbicacion);
+        btUbicacion.setOnClickListener(this);
+        mapaView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(MapboxMap mapboxMap) {
+                mapa = mapboxMap;
+            }
+        });
+
+
         ubicarUsuario();
     }
     private void ubicarUsuario() {
         servicioUbicacion = LocationServices.getLocationServices(this);
-        btUbicacion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mapa != null){
-                    Location lastLocation = servicioUbicacion.getLastLocation();
-                    if(lastLocation != null){
-                        mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation),16));
-                    }
-                    mapa.setMyLocationEnabled(true);
-                }
+        if(mapa != null){
+            Location lastLocation = servicioUbicacion.getLastLocation();
+            if(lastLocation != null){
+                mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation),16));
             }
-        });
+            mapa.setMyLocationEnabled(true);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        ubicarUsuario();
+    }
 }

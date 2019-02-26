@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <PreferenceCategory android:title="Interfaz">
+
+            <CheckBoxPreference
+                android:key="opcion_modo_noche"
+                android:summary="Activar modo noche"
+                android:title="Modo noche" />
+
+            <CheckBoxPreference
+                android:key="opcion_tamano"
+                android:summary="Marca esta opcion para aumentar el tamaño de la letra"
+                android:title="Tamaño Letra +" />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="Agenda">
+
+            <ListPreference
+                android:dialogTitle="Por nombre o apellidos"
+
+                android:key="opcion_datos"
+                android:summary="Cómo identificar a los contactos"
+                android:title="Mostrar Contactos" />
+        </PreferenceCategory>
+    </PreferenceScreen>

@@ -13,5 +13,15 @@
         mapbox:center_latitude="41.656287"
         mapbox:center_longitude="-0.876538"
         mapbox:style_url="@string/style_mapbox_streets"
-        mapbox:zoom="12"></com.mapbox.mapboxsdk.maps.MapView>
+        mapbox:zoom="12">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btUbicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@drawable/compass" />
+    </com.mapbox.mapboxsdk.maps.MapView>
+
 </RelativeLayout>
