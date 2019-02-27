@@ -17,4 +17,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="descripcion_nigra">Tienda de streetwear cont trato muy personal, muy recomendable</string>
+    <string name="nigra">Nigramercato</string>
+    <string name="urban">Urban Jungle</string>
+    <string name="descripcion_urban">Tienda de zapatillas con mucha variedad</string>
+    <string name="size">size?</string>
+    <string name="descripcion_size">Franquicia procedente del Reino Unido con buen material</string>
+    <string name="footlocker">Foot Locker</string>
+    <string name="descripcion_footlocker">La clasica, la de toda la vida</string>
 </resources>

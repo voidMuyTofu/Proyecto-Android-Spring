@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         prendas.add(prenda);
         adapter.notifyDataSetChanged();
 
-        DescargaDatos descargaDatos = new DescargaDatos();
-        descargaDatos.execute();
+        //DescargaDatos descargaDatos = new DescargaDatos();
+        //descargaDatos.execute();
 
 
     }
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            Ropa[] prendasServer = restTemplate.getForObject("http://10.0.2.2:8082"
+            Ropa[] prendasServer = restTemplate.getForObject("http://192.168.43.195:8082"
                     + "/armario",Ropa[].class);
             prendas.addAll(Arrays.asList(prendasServer));
             System.out.println(prendas);

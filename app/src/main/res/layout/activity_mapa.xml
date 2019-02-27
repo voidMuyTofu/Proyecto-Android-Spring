@@ -16,12 +16,24 @@
         mapbox:zoom="12">
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btRuta"
+            android:layout_width="wrap_content"
+            android:layout_height="67dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@mipmap/icons8_poste_indicador_100"
+            mapbox:backgroundTint="@color/mapbox_blue" />
+
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/btUbicacion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:clickable="true"
-            android:src="@drawable/compass" />
+            android:src="@mipmap/imageedit_1_2959360212"
+            mapbox:backgroundTint="@color/mapbox_blue" />
+
     </com.mapbox.mapboxsdk.maps.MapView>
 
 </RelativeLayout>
