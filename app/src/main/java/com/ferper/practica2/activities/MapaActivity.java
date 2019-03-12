@@ -172,5 +172,7 @@ public class MapaActivity extends Activity implements View.OnClickListener, Mapb
     @Override
     public void onMapClick(@NonNull LatLng point) {
         btRuta.setVisibility(View.INVISIBLE);
+        mapa.clear();
+        addMarkers(mapa);
     }
 }

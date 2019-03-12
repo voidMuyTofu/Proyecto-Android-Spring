@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -59,23 +60,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(this);
         modoNoche = preferencias.getBoolean("opcion_modo_noche",false);
         UiModeManager modeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+        View view = this.getWindow().getDecorView();
         if (modoNoche)
-            modeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+            view.setBackgroundColor(Color.BLACK);
         else
-            modeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
-        Ropa prenda = new Ropa();
-        prenda.setNombre("wily");
-        prenda.setMarca("wonka");
-        prenda.setTalla("m");
-        prenda.setPrecio(22);
-        prendas.add(prenda);
-        prendas.add(prenda);
-        prendas.add(prenda);
-        prendas.add(prenda);
-        adapter.notifyDataSetChanged();
+            view.setBackgroundColor(Color.WHITE);
 
-        //DescargaDatos descargaDatos = new DescargaDatos();
-        //descargaDatos.execute();
+
+        DescargaDatos descargaDatos = new DescargaDatos();
+        descargaDatos.execute();
 
 
     }
@@ -83,12 +76,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+        DescargaDatos descargaDatos = new DescargaDatos();
+        descargaDatos.execute();
         UiModeManager modeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+        View view = this.getWindow().getDecorView();
         if (modoNoche)
-            modeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+            view.setBackgroundColor(Color.BLACK);
         else
-            modeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
-    }
+            view.setBackgroundColor(Color.WHITE);    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,14 +141,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            prendas.clear();
+        }
+
+        @Override
         protected Void doInBackground(String... strings) {
 
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-            Ropa[] prendasServer = restTemplate.getForObject("http://192.168.43.195:8082"
+            Ropa[] prendasServer = restTemplate.getForObject("http://10.0.2.2:8082"
                     + "/armario",Ropa[].class);
             prendas.addAll(Arrays.asList(prendasServer));
-            System.out.println(prendas);
             return null;
         }
 
